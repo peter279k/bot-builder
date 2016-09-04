@@ -1,5 +1,5 @@
 <?php
-    require "vendor/autoload.php";
+    namespace peter\components\botbuilder;
     use GuzzleHttp\Client;
 
     class BotBuilder {

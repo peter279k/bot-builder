@@ -1,5 +1,21 @@
 {
+    "name": "peter/botbuilder",
+    "description": "help you build messenger bot easily",
+    "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^6.2"
-    }
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "peter\\components": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "peter279k",
+            "email": "peter279k@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta"
 }
