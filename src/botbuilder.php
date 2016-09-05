@@ -173,7 +173,7 @@
                 "headers" => array(
                     "Content-Type" => "application/json"
                 ),
-                "body" => json_encode($data)
+                "json" => $data
             );
 
             if($action === "do-setting") {
