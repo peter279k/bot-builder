@@ -13,7 +13,7 @@
             $tokenPath = $path . "/token.txt";
 
             if(file_exists($tokenPath)) {
-                $handle = fopen($tokenPath);
+                $handle = fopen($tokenPath, "r");
                 //ignore the attention comment
 
                 fgets($handle, 4096);
