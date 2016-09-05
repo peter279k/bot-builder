@@ -47,7 +47,7 @@
 
             //statusBubble testing (return value always is true.)
 
-            $data = $this -> statusBubbleTest();
+            $data = $this -> statusBubbleTest($userId);
             $result = $builder -> statusBubble($data);
             $expect = true;
 
@@ -55,7 +55,7 @@
 
             //sendMsg testing
 
-            $data = $this -> sendMsgTest();
+            $data = $this -> sendMsgTest($userId);
             $result = $builder -> sendMsg($data);
             $expect = true;
 
@@ -63,7 +63,7 @@
 
             //sendImage testing
 
-            $data = $this -> sendImageTest();
+            $data = $this -> sendImageTest("image", $userId);
             $result = $builder -> sendImage($data);
             $expect = true;
 
@@ -71,7 +71,7 @@
 
             //sendAudio testing
 
-            $data = $this -> sendAudioTest();
+            $data = $this -> sendAudioTest("audio", $userId);
             $result = $builder -> sendAudio($data);
             $expect = true;
 
@@ -79,7 +79,7 @@
 
             //sendVideo testing
 
-            $data = $this -> sendVideoTest();
+            $data = $this -> sendVideoTest("video", $userId);
             $result = $builder -> sendVideo($data);
             $expect = true;
 
@@ -87,7 +87,7 @@
 
             //sendFile testing
 
-            $data = $this -> sendFileTest();
+            $data = $this -> sendFileTest("file", $userId);
             $result = $builder -> sendFile($data);
             $expect = true;
 
@@ -96,7 +96,7 @@
             
         }
 
-        public function statusBubbleTest() {
+        public function statusBubbleTest($userId) {
             $data = array(
                 "recipient" => array(
                     "id" => $userId
@@ -107,22 +107,20 @@
         }
         
 
-        public function sendMsgTest($type) {
-            if($type === "texts") {
-                $data = array(
-                    "recipient" => array(
-                        "id" => $userId
-                    ),
-                    "message" => array(
-                        "text" => "Hello World!"
-                    )
-                );
-            }
+        public function sendMsgTest($userId) {
+            $data = array(
+                "recipient" => array(
+                    "id" => $userId
+                ),
+                "message" => array(
+                    "text" => "Hello World!"
+                )
+            );
 
             return $data;
         }
 
-        public function sendImageTest($type) {
+        public function sendImageTest($type, $userId) {
             if($type === "image-url") {
                 $data = array(
                     "recipient" => array(
@@ -157,7 +155,7 @@
             return $data;
         }
 
-        public function sendAudioTest($type) {
+        public function sendAudioTest($type, $userId) {
             if($type === "audio-url") {
                 $data = array(
                     "recipient" => array(
@@ -192,7 +190,7 @@
             return $data;
         }
 
-        public function sendVideoTest($type) {
+        public function sendVideoTest($type, $userId) {
             if($type === "video-url") {
                 $data = array(
                     "recipient" => json_encode(array(
@@ -228,7 +226,7 @@
             return $data;
         }
 
-        public function sendFileTest($type) {
+        public function sendFileTest($type, $userId) {
             if($type === "file-url") {
                 $data = array(
                     "recipient" => json_encode(array(
