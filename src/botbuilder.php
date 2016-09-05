@@ -137,7 +137,7 @@
         private function clientSend($input, $data) {
             $client = new Client();
             $headers = array(
-                "body" => json_encode($data),
+                "json" => $data,
                 "verify" => false,
                 "headers" => array(
                     "Content-Type" => "application/json"
@@ -161,7 +161,7 @@
         private function threadSetting($data, $action) {
             $client = new Client();
             $headers = array(
-                "body" => json_encode($data),
+                "json" => $data,
                 "verify" => false,
                 "headers" => array(
                     "Content-Type" => "application/json"
