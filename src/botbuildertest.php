@@ -10,15 +10,14 @@
 
             $path = __DIR__;
 
-            $tokenPath = $path . "/token.txt";
+            $tokenPath = $path . "/token.json";
 
             if(file_exists($tokenPath)) {
-                $handle = fopen($tokenPath, "r");
+                $contents = json_decode(file_get_contents($tokenPath), true);
                 //ignore the attention comment
 
-                $comments = fgets($handle, 4096);
-                $accessToken = fgets($handle, 4096);
-                $userId = fgets($handle, 4096);
+                $accessToken = $contents["token"];
+                $userId = $contents["user_id"];
                 fclose($handle);
             }
             else {
