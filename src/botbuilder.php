@@ -51,12 +51,17 @@
             $response = $client -> request("POST", $this -> subscribeUrl);
             $json = $response -> getBody();
             $json = json_decode($json, true);
-
-            if(isset($json["success"])) {
-                return $json["success"];
-            }
-            else if($debug === true) {
+            
+            if($debug === true) {
                 return $json;
+            }
+            else if($debug === false){
+                if(isset($json["success"])) {
+                    return $json["success"];
+                }
+                else {
+                    return false;
+                }
             }
             else {
                 return false;
