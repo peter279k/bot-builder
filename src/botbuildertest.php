@@ -23,7 +23,7 @@
                 die("the token.txt is missing.");
             }
 
-            $builder = new BotBuilder(file_get_contents($path . "/token.txt"));
+            $builder = new BotBuilder($accessToken);
             
             //subscribe testing
 
