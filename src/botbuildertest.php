@@ -16,7 +16,7 @@
                 $handle = fopen($tokenPath, "r");
                 //ignore the attention comment
 
-                fgets($handle, 4096);
+                $comments = fgets($handle, 4096);
                 $accessToken = fgets($handle, 4096);
                 $userId = fgets($handle, 4096);
                 fclose($handle);
