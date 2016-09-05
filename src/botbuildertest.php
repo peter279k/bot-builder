@@ -41,7 +41,8 @@
 
             $debug = "test-false";
             $expect = false;
-            $result = $this -> assertSame($expect, $result);
+            $result = $builder -> subscribe($debug);
+            $this -> assertSame($expect, $result);
 
             //addMenu testing
 
