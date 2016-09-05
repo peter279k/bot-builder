@@ -168,6 +168,7 @@
                 "body" => json_encode($data),
             );
             $header = array(
+                "debug" => true,
                 "verify" => false,
                 "headers" => array(
                     "Content-Type" => "application/json"
