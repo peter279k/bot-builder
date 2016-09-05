@@ -36,8 +36,9 @@
 
             $debug = false;
             $result = $builder -> subscribe($debug);
-
-            $this -> assertSame(false, !empty($result["success"]));
+            $expect = false;
+            
+            $this -> assertSame($expect, !empty($result["success"]));
 
             $debug = "test-false";
             $expect = false;

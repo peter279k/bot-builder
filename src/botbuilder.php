@@ -55,7 +55,7 @@
             if(isset($json["success"])) {
                 return $json["success"];
             }
-            else if($debug) {
+            else if($debug === true) {
                 return $json;
             }
             else {
