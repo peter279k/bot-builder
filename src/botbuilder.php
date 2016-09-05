@@ -164,16 +164,13 @@
 
         private function threadSetting($data, $action) {
             $client = new Client();
-            $body = array(
-                
-            );
             $header = array(
                 "debug" => true,
                 "verify" => false,
                 "headers" => array(
                     "Content-Type" => "application/json"
                 ),
-                "json" => $data
+                "form_params" => $data
             );
 
             if($action === "do-setting") {
