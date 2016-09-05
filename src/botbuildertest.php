@@ -48,6 +48,8 @@
 
             $this -> assertSame($expect, $result);
 
+            //addMenu testing (error)
+
             $data = $this -> errMenu();
             $result = $this -> addMenu($data);
             $expect = false;
@@ -61,6 +63,8 @@
             $expect = true;
 
             $this -> assertSame($expect, $result);
+
+            //addGreeting testing (error)
 
             $data = $this -> errGreeting();
             $result = $this -> addGreeting($data);
