@@ -165,18 +165,19 @@
         private function threadSetting($data, $action) {
             $client = new Client();
             $body = array(
-                "body" => json_encode($data),
+                
             );
             $header = array(
                 "debug" => true,
                 "verify" => false,
                 "headers" => array(
                     "Content-Type" => "application/json"
-                )
+                ),
+                "body" => json_encode($data)
             );
 
             if($action === "do-setting") {
-                $response = $client -> request("POST", $this -> reqUrl, $header, $body);
+                $response = $client -> request("POST", $this -> reqUrl, $header);
             }
             if($action === "delete-setting"){
                 $response = $client -> request("DELETE", $this -> settingUrl, $headers);
