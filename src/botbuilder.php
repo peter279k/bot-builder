@@ -91,7 +91,9 @@
             );
             $header = array(
                 "verify" => false,
-                "Content-Type" => "application/json"
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                )
             );
             $response = $client -> request("POST", $this -> reqUrl, $header, $body);
             $json = $response -> getBody();
@@ -141,7 +143,9 @@
             );
             $header = array(
                 "verify" => false,
-                "Content-Type" => "application/json"
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                )
             );
             
             if(!empty($input['entry'][0]['messaging'][0]['message'])) {
@@ -165,7 +169,9 @@
             );
             $header = array(
                 "verify" => false,
-                "Content-Type" => "application/json"
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                )
             );
 
             if($action === "do-setting") {
