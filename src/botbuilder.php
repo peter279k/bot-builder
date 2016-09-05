@@ -165,7 +165,7 @@
         private function threadSetting($data, $action) {
             $client = new Client();
             $body = array(
-                "json" => $data,
+                "body" => json_encode($data),
             );
             $header = array(
                 "verify" => false,
