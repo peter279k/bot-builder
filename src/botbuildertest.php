@@ -7,47 +7,185 @@
 
         /** @test */
         public function builderTest() {
+            if(file_exists()) {
+                $handle = fopen("./token.txt");
+                //ignore the attention comment
+
+                fgets($handle, 4096);
+                $accessToken = fgets($handle, 4096);
+                $userId = fgets($handle, 4096);
+                fclose($handle);
+            }
+            else {
+                die("the token.txt is missing.");
+            }
+
+            $builder = new BotBuilder(file_get_contents("./token.txt"));
             
-        }
+            //subscribe testing
 
-        public function subscribeTest() {
-            $data = array(
+            $debug = true;
+            $result = $this -> subscribe($debug);
 
-            );
-            return $data;
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            $debug = false;
+            $result = $this -> subscribe($debug);
+
+            $this -> assertSame(false, !empty($result["success"]));
+
+            $debug = "test-false";
+            $expect = false;
+            $result = $this -> assertSame($expect, $result);
+
+            //addMenu testing
+
+            $data = $this -> addMenuTest();
+            $result = $this -> addMenu($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            $data = $this -> errMenu();
+            $result = $this -> addMenu($data);
+            $expect = false;
+
+            $this -> assertSame($expect, $result["success"]);
+
+            //addGreeting testing
+
+            $data = $this -> addGreetingTest();
+            $result = $this -> addGreeting($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            $data = $this -> errGreeting();
+            $result = $this -> addGreeting($data);
+            $expect = false;
+
+            $this -> assertSame($expect, $result["success"]);
+
+            //statusBubble testing (return value always is true.)
+
+            $data = $this -> statusBubbleTest();
+            $result = $this -> statusBubble($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            //sendMsg testing
+
+            $data = $this -> sendMsgTest();
+            $result = $this -> sendMsg($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            //sendImage testing
+
+            $data = $this -> sendImageTest();
+            $result = $this -> sendImage($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            //sendAudio testing
+
+            $data = $this -> sendAudioTest();
+            $result = $this -> sendAudio($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            //sendVideo testing
+
+            $data = $this -> sendVideoTest();
+            $result = $this -> sendVideo($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
+            //sendFile testing
+
+            
+            
         }
 
         public function addMenuTest() {
             $data = array(
+                "setting_type" => "call_to_actions",
+                "thread_state" => "existing_thread",
+                "call_to_actions" => array(
+                    array(
+                        "type" => "postback",
+                        "title" => "Help",
+                        "payload" => "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
+                    )
+                )
+            );
+            return $data;
+        }
 
+        public function errMenu() {
+            $data = array(
+                "setting_type" => "call_to_actions",
+                "thread_state" => "existing_thread",
+                "call_to_actions" => array(
+                    array(
+                        "type" => "postback123",
+                        "title" => "Help",
+                        "payload" => "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
+                    )
+                )
             );
             return $data;
         }
 
         public function addGreetingTest() {
             $data = array(
-                
+                "setting_type" => "greeting",
+                "greeting" => array(
+                    "text" => "Welcome to my bot service !"
+                )
+            );
+            return $data;
+        }
+
+        public function errGreeting() {
+            $data = array(
+                "setting_type" => "greeting123",
+                "greeting" => array(
+                    "text" => "Welcome to my bot service !"
+                )
             );
             return $data;
         }
 
         public function deleteMenuTest() {
             $data = array(
-                
+                "setting_type" => "call_to_actions",
+                "thread_state" => "existing_thread"
             );
             return $data;
         }
 
         public function deleteGreetingTest() {
             $data = array(
-                
+                "setting_type" => "greeting",
+                "thread_state" => "existing_thread"
             );
             return $data;
         }
 
         public function statusBubbleTest() {
             $data = array(
-                
+                "recipient" => array(
+                    "id" => $userId
+                ),
+                "sender_action" => "typing_on"
             );
             return $data;   
         }
@@ -57,7 +195,7 @@
             if($type === "texts") {
                 $data = array(
                     "recipient" => array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     ),
                     "message" => array(
                         "text" => "Hello World!"
@@ -72,7 +210,7 @@
             if($type === "image-url") {
                 $data = array(
                     "recipient" => array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     ),
                     "message" => array(
                         "attachment" => array(
@@ -88,7 +226,7 @@
             if($type === "image") {
                 $data = array(
                     "recipient" => json_encode(array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     )),
                     "message" => json_encode(array(
                         "attachment" => array(
@@ -103,11 +241,11 @@
             return $data;
         }
 
-        public function sendAudioFileTest($type) {
+        public function sendAudioTest($type) {
             if($type === "audio-url") {
                 $data = array(
                     "recipient" => array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     ),
                     "message" => array(
                         "attachment" => array(
@@ -123,7 +261,7 @@
             if($type === "audio") {
                 $data = array(
                     "recipient" => json_encode(array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     )),
                     "message" => json_encode(array(
                         "attachment" => array(
@@ -142,7 +280,7 @@
             if($type === "video-url") {
                 $data = array(
                     "recipient" => json_encode(array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     )),
                     "message" => json_encode(array(
                         "attachment" => array(
@@ -159,7 +297,7 @@
             if($type === "video") {
                 $data = array(
                     "recipient" => json_encode(array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     )),
                     "message" => json_encode(array(
                         "attachment" => array(
@@ -178,7 +316,7 @@
             if($type === "file-url") {
                 $data = array(
                     "recipient" => json_encode(array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     )),
                     "message" => json_encode(array(
                         "attachment" => array(
@@ -195,7 +333,7 @@
             if($type === "file") {
                 $data = array(
                     "recipient" => json_encode(array(
-                        "id" => "1670246977"
+                        "id" => $userId
                     )),
                     "message" => json_encode(array(
                         "attachment" => array(

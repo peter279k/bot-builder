@@ -7,6 +7,7 @@
             $this -> accessToken = $accessToken;
             $this -> reqUrl = "https://graph.facebook.com/v2.6/me/messages?access_token=" . $this -> accessToken;
             $this -> settingUrl = "https://graph.facebook.com/v2.6/me/thread_settings?access_token=" . $this -> accessToken;
+            $this -> subscribeUrl = "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=" . $this -> accessToken;
         }
 
         public function verify($verifyToken) {
@@ -45,9 +46,9 @@
 
         }
 
-        public function subscribe($data, $debug) {
+        public function subscribe($debug) {
             $client = new Client();
-            $response = $client -> request("POST", $this -> settingUrl);
+            $response = $client -> request("POST", $this -> subscribeUrl);
             $json = $response -> getBody();
             $json = json_decode($json, true);
 
@@ -86,6 +87,7 @@
             );
             $response = $client -> request("POST", $this -> reqUrl, $headers);
             $json = $response -> getBody();
+            return true;
         }
 
         public function sendImage($data) {
@@ -102,7 +104,12 @@
         }
 
         public function sendFile($data) {
-            return $this -> clientSend($data);
+            if(count($data["attachment"]["payload"]) === 0) {
+                return $this -> clientUpload($data);
+            }
+            else {
+                return $this -> clientSend($data);
+            }
         }
 
         private function clientUpload($data) {
@@ -140,7 +147,7 @@
             }
         }
 
-        private function threadSetting($data) {
+        private function threadSetting($data, $action) {
             $client = new Client();
             $headers = array(
                 "json" => $data,
@@ -150,11 +157,8 @@
             if($action === "do-setting") {
                 $response = $client -> request("POST", $this -> reqUrl, $headers);
             }
-            else if($action === "delete-setting"){
+            if($action === "delete-setting"){
                 $response = $client -> request("DELETE", $this -> settingUrl, $headers);
-            }
-            else {
-                return "invalid-setting";
             }
 
             $json = json_decode($response -> getBody(), true);
@@ -166,22 +170,6 @@
                 return $json;
             }
         }
-
-        /*
-         //Get the senders graph id
-
-            $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
-            
-            //Receive the message
-
-            if(empty($input["entry"][0]["messaging"]["text"])) {
-                $attachments = $input["entry"][0]["messaging"]["attachments"];
-                
-            }
-            else {
-                $message = $input["entry"][0]["messaging"]["text"];
-            }
-        */
 
     }
 
