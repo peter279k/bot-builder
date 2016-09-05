@@ -130,13 +130,13 @@
 
         public function addMenuTest() {
             $data = array(
-                "setting_type" => "call_to_actions",
-                "thread_state" => "existing_thread",
-                "call_to_actions" => array(
+                'setting_type' => 'call_to_actions',
+                'thread_state' => 'existing_thread',
+                'call_to_actions' => array(
                     array(
-                        "type" => "postback",
-                        "title" => "Help",
-                        "payload" => "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
+                        'type' => 'postback',
+                        'title' => 'Help',
+                        'payload' => 'DEVELOPER_DEFINED_PAYLOAD_FOR_HELP'
                     )
                 )
             );
