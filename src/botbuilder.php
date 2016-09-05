@@ -86,14 +86,14 @@
 
         public function statusBubble($data) {
             $client = new Client();
-            $headers = array(
+            $body = array(
                 "json" => $data,
-                "verify" => false,
-                "headers" => array(
-                    "Content-Type" => "application/json"
-                )
             );
-            $response = $client -> request("POST", $this -> reqUrl, $headers);
+            $header = array(
+                "verify" => false,
+                "Content-Type" => "application/json"
+            );
+            $response = $client -> request("POST", $this -> reqUrl, $header, $body);
             $json = $response -> getBody();
             return true;
         }
