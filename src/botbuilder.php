@@ -45,7 +45,7 @@
 
         }
 
-        public function subscribe($data) {
+        public function subscribe($data, $debug) {
             $client = new Client();
             $response = $client -> request("POST", $this -> settingUrl);
             $json = $response -> getBody();
@@ -54,8 +54,11 @@
             if(isset($json["success"])) {
                 return $json["success"];
             }
-            else {
+            else if($debug) {
                 return $json;
+            }
+            else {
+                return false;
             }
         }
 
@@ -78,28 +81,49 @@
         public function statusBubble($data) {
             $client = new Client();
             $headers = array(
-                "json" => $data
+                "json" => $data,
+                "verify" => false
             );
             $response = $client -> request("POST", $this -> reqUrl, $headers);
             $json = $response -> getBody();
         }
 
-        private function sendImage($data) {
+        public function sendImage($data) {
+            if(count($data["attachment"]["payload"]) === 0) {
+                return $this -> clientUpload($data);
+            }
+            else {
+                return $this -> clientSend($data);
+            }
+        }
+
+        public function sendText($data) {
             return $this -> clientSend($data);
         }
 
-        private function sendText($data) {
+        public function sendFile($data) {
             return $this -> clientSend($data);
         }
 
-        private function sendFile($data) {
-            return $this -> clientSend($data);
+        private function clientUpload($data) {
+            $client = new Client();
+            $data["filedata"] = fopen($data["filedata"], "r");
+            $headers = array(
+                "verify" => false,
+                "form_params" => $data
+            );
+
+            $response = $client -> request("POST", $this -> reqUrl,  $data, $headers);
+            $json = $response -> getBody();
+            return json_decode($json, true);
+
         }
 
         private function clientSend($input, $data) {
             $client = new Client();
             $headers = array(
-                "json" => $data
+                "json" => $data,
+                "verify" => false
             );
             
             if(!empty($input['entry'][0]['messaging'][0]['message'])) {
@@ -119,7 +143,8 @@
         private function threadSetting($data) {
             $client = new Client();
             $headers = array(
-                "json" => $data
+                "json" => $data,
+                "verify" => false
             );
 
             if($action === "do-setting") {
