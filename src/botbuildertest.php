@@ -30,14 +30,14 @@
             //subscribe testing
 
             $debug = true;
-            $result = $this -> subscribe($debug);
+            $result = $builder -> subscribe($debug);
 
             $expect = true;
 
             $this -> assertSame($expect, $result);
 
             $debug = false;
-            $result = $this -> subscribe($debug);
+            $result = $builder -> subscribe($debug);
 
             $this -> assertSame(false, !empty($result["success"]));
 
@@ -48,7 +48,7 @@
             //addMenu testing
 
             $data = $this -> addMenuTest();
-            $result = $this -> addMenu($data);
+            $result = $builder -> addMenu($data);
             $expect = true;
 
             $this -> assertSame($expect, $result);
@@ -56,7 +56,7 @@
             //addMenu testing (error)
 
             $data = $this -> errMenu();
-            $result = $this -> addMenu($data);
+            $result = $builder -> addMenu($data);
             $expect = false;
 
             $this -> assertSame($expect, $result["success"]);
@@ -64,7 +64,7 @@
             //addGreeting testing
 
             $data = $this -> addGreetingTest();
-            $result = $this -> addGreeting($data);
+            $result = $builder -> addGreeting($data);
             $expect = true;
 
             $this -> assertSame($expect, $result);
@@ -72,7 +72,7 @@
             //addGreeting testing (error)
 
             $data = $this -> errGreeting();
-            $result = $this -> addGreeting($data);
+            $result = $builder -> addGreeting($data);
             $expect = false;
 
             $this -> assertSame($expect, $result["success"]);
@@ -80,7 +80,7 @@
             //statusBubble testing (return value always is true.)
 
             $data = $this -> statusBubbleTest();
-            $result = $this -> statusBubble($data);
+            $result = $builder -> statusBubble($data);
             $expect = true;
 
             $this -> assertSame($expect, $result);
@@ -88,7 +88,7 @@
             //sendMsg testing
 
             $data = $this -> sendMsgTest();
-            $result = $this -> sendMsg($data);
+            $result = $builder -> sendMsg($data);
             $expect = true;
 
             $this -> assertSame($expect, $result);
@@ -96,7 +96,7 @@
             //sendImage testing
 
             $data = $this -> sendImageTest();
-            $result = $this -> sendImage($data);
+            $result = $builder -> sendImage($data);
             $expect = true;
 
             $this -> assertSame($expect, $result);
@@ -104,7 +104,7 @@
             //sendAudio testing
 
             $data = $this -> sendAudioTest();
-            $result = $this -> sendAudio($data);
+            $result = $builder -> sendAudio($data);
             $expect = true;
 
             $this -> assertSame($expect, $result);
@@ -112,14 +112,19 @@
             //sendVideo testing
 
             $data = $this -> sendVideoTest();
-            $result = $this -> sendVideo($data);
+            $result = $builder -> sendVideo($data);
             $expect = true;
 
             $this -> assertSame($expect, $result);
 
             //sendFile testing
 
-            
+            $data = $this -> sendFileTest();
+            $result = $builder -> sendFile($data);
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
+
             
         }
 
