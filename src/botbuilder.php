@@ -1,5 +1,5 @@
 <?php
-    namespace peter\components\botbuilder;
+    namespace peter\components;
     use GuzzleHttp\Client;
 
     class BotBuilder {

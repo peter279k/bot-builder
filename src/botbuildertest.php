@@ -1,14 +1,17 @@
 <?php
     require_once "botbuilder.php";
 
-    use peter\components\botbuilder;
+    use peter\components\BotBuilder;
 
     class BotBuilderTest extends PHPUnit_Framework_TestCase {
 
         /** @test */
         public function builderTest() {
+
+            $path = __DIR__;
+
             if(file_exists("./token.txt")) {
-                $handle = fopen("./token.txt");
+                $handle = fopen($path . "/token.txt");
                 //ignore the attention comment
 
                 fgets($handle, 4096);
@@ -20,7 +23,7 @@
                 die("the token.txt is missing.");
             }
 
-            $builder = new BotBuilder(file_get_contents("./token.txt"));
+            $builder = new BotBuilder(file_get_contents($path . "/token.txt"));
             
             //subscribe testing
 
@@ -238,7 +241,7 @@
                             "payload" => "{}"
                         )
                     )),
-                    "filedata" => "./image.png"
+                    "filedata" => $path . "/image.png"
                 );
             }
 
@@ -273,7 +276,7 @@
                             "payload" => "{}"
                         )
                     )),
-                    "filedata" => "./audio.mp3"
+                    "filedata" => $path . "/audio.mp3"
                 );
             }
 
@@ -294,7 +297,7 @@
                             )
                         )
                     )),
-                    "filedata" => "./image.png"
+                    "filedata" => $path . "/image.png"
                 );
             }
 
@@ -309,7 +312,7 @@
                             "payload" => "{}"
                         )
                     )),
-                    "filedata" => "./video.mp4"
+                    "filedata" => $path . "/video.mp4"
                 );
             }
 
@@ -330,7 +333,7 @@
                             )
                         )
                     )),
-                    "filedata" => "./image.png"
+                    "filedata" => $path . "/image.png"
                 );
             }
 
@@ -345,7 +348,7 @@
                             "payload" => "{}"
                         )
                     )),
-                    "filedata" => "./file.txt"
+                    "filedata" => $path . "/file.txt"
                 );
             }
 
