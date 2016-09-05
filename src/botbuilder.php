@@ -168,9 +168,10 @@
                 "debug" => true,
                 "verify" => false,
                 "headers" => array(
-                    "Content-Type" => "application/json"
+                    "Content-Type" => "application/json",
+                    "Accept" => "application/json"
                 ),
-                "form_params" => $data
+                "json" => $data
             );
 
             if($action === "do-setting") {
