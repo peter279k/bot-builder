@@ -88,7 +88,10 @@
             $client = new Client();
             $headers = array(
                 "json" => $data,
-                "verify" => false
+                "verify" => false,
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                )
             );
             $response = $client -> request("POST", $this -> reqUrl, $headers);
             $json = $response -> getBody();
@@ -135,7 +138,10 @@
             $client = new Client();
             $headers = array(
                 "json" => $data,
-                "verify" => false
+                "verify" => false,
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                )
             );
             
             if(!empty($input['entry'][0]['messaging'][0]['message'])) {
@@ -156,7 +162,10 @@
             $client = new Client();
             $headers = array(
                 "json" => $data,
-                "verify" => false
+                "verify" => false,
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                )
             );
 
             if($action === "do-setting") {
