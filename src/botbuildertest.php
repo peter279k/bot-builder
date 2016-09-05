@@ -18,7 +18,6 @@
 
                 $accessToken = $contents["token"];
                 $userId = $contents["user_id"];
-                fclose($handle);
             }
             else {
                 die("the token.txt is missing.");
