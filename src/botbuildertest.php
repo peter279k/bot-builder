@@ -32,13 +32,13 @@
 
             $expect = true;
 
-            $this -> assertSame($expect, $result);
+            $this -> assertSame($expect, isset($result["success"]));
 
             $debug = false;
             $result = $builder -> subscribe($debug);
-            $expect = false;
-            
-            $this -> assertSame($expect, !empty($result["success"]));
+            $expect = true;
+
+            $this -> assertSame($expect, $result);
 
             $debug = "test-false";
             $expect = false;
