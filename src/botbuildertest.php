@@ -10,8 +10,10 @@
 
             $path = __DIR__;
 
-            if(file_exists("./token.txt")) {
-                $handle = fopen($path . "/token.txt");
+            $tokenPath = $path . "/token.txt";
+
+            if(file_exists($tokenPath)) {
+                $handle = fopen($tokenPath);
                 //ignore the attention comment
 
                 fgets($handle, 4096);
