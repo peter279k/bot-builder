@@ -45,38 +45,6 @@
             $result = $builder -> subscribe($debug);
             $this -> assertSame($expect, $result);
 
-            //addMenu testing
-
-            $data = $this -> addMenuTest();
-            $result = $builder -> addMenu($data);
-            $expect = true;
-
-            $this -> assertSame($expect, $result);
-
-            //addMenu testing (error)
-
-            $data = $this -> errMenu();
-            $result = $builder -> addMenu($data);
-            $expect = false;
-
-            $this -> assertSame($expect, $result["success"]);
-
-            //addGreeting testing
-
-            $data = $this -> addGreetingTest();
-            $result = $builder -> addGreeting($data);
-            $expect = true;
-
-            $this -> assertSame($expect, $result);
-
-            //addGreeting testing (error)
-
-            $data = $this -> errGreeting();
-            $result = $builder -> addGreeting($data);
-            $expect = false;
-
-            $this -> assertSame($expect, $result["success"]);
-
             //statusBubble testing (return value always is true.)
 
             $data = $this -> statusBubbleTest();
@@ -126,95 +94,6 @@
             $this -> assertSame($expect, $result);
 
             
-        }
-
-        public function addMenuTest() {
-            $data = array(
-                'setting_type' => 'call_to_actions',
-                'thread_state' => 'existing_thread',
-                'call_to_actions' => array(
-                    array(
-                        'type' => 'postback',
-                        'title' => 'Help',
-                        'payload' => 'DEVELOPER_DEFINED_PAYLOAD_FOR_HELP'
-                    )
-                )
-            );
-
-            $data = '{
-  "setting_type" : "call_to_actions",
-  "thread_state" : "existing_thread",
-  "call_to_actions":[
-    {
-      "type":"postback",
-      "title":"Help",
-      "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
-    },
-    {
-      "type":"postback",
-      "title":"Start a New Order",
-      "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
-    },
-    {
-      "type":"web_url",
-      "title":"View Website",
-      "url":"http://petersapparel.parseapp.com/"
-    }
-  ]
-}';
-
-            return $data;
-        }
-
-        public function errMenu() {
-            $data = array(
-                "setting_type" => "call_to_actions",
-                "thread_state" => "existing_thread",
-                "call_to_actions" => array(
-                    array(
-                        "type" => "postback123",
-                        "title" => "Help",
-                        "payload" => "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
-                    )
-                )
-            );
-            return $data;
-        }
-
-        public function addGreetingTest() {
-            $data = array(
-                "setting_type" => "greeting",
-                "greeting" => array(
-                    "text" => "Welcome to my bot service !"
-                )
-            );
-            return $data;
-        }
-
-        public function errGreeting() {
-            $data = array(
-                "setting_type" => "greeting123",
-                "greeting" => array(
-                    "text" => "Welcome to my bot service !"
-                )
-            );
-            return $data;
-        }
-
-        public function deleteMenuTest() {
-            $data = array(
-                "setting_type" => "call_to_actions",
-                "thread_state" => "existing_thread"
-            );
-            return $data;
-        }
-
-        public function deleteGreetingTest() {
-            $data = array(
-                "setting_type" => "greeting",
-                "thread_state" => "existing_thread"
-            );
-            return $data;
         }
 
         public function statusBubbleTest() {

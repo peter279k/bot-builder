@@ -68,34 +68,16 @@
             }
         }
 
-        public function addMenu($data) {
-            return $this -> threadSetting($data, "do-setting");
-        }
-
-        public function addGreeting($data) {
-            return $this -> threadSetting($data, "do-setting");
-        }
-
-        public function deleteMenu($data) {
-            return $this -> threadSetting($data, "delete-setting");
-        }
-
-        public function deleteGreeting($data) {
-            return $this -> threadSetting($data, "delete-setting");
-        }
-
         public function statusBubble($data) {
             $client = new Client();
-            $body = array(
-                "json" => $data,
-            );
             $header = array(
                 "verify" => false,
                 "headers" => array(
                     "Content-Type" => "application/json"
-                )
+                ),
+                "json" => $data
             );
-            $response = $client -> request("POST", $this -> reqUrl, $header, $body);
+            $response = $client -> request("POST", $this -> reqUrl, $header);
             $json = $response -> getBody();
             return true;
         }
@@ -138,53 +120,22 @@
 
         private function clientSend($input, $data) {
             $client = new Client();
-            $body = array(
-                "json" => $data,
-            );
             $header = array(
                 "verify" => false,
                 "headers" => array(
                     "Content-Type" => "application/json"
-                )
+                ),
+                "json" => $data
             );
             
             if(!empty($input['entry'][0]['messaging'][0]['message'])) {
-                $response = $client -> request("POST", $this -> reqUrl, $header, $body);
+                $response = $client -> request("POST", $this -> reqUrl, $header);
                 $json = $response -> getBody();
                 $json = json_decode($json, true);
                 if(isset($json["message_id"]))
                     return true;
                 else
                     return $json;
-            }
-            else {
-                return $json;
-            }
-        }
-
-        private function threadSetting($data, $action) {
-            $client = new Client();
-            $header = array(
-                "debug" => true,
-                "verify" => false,
-                "headers" => array(
-                    "Content-Type" => "application/json",
-                    "Accept" => "application/json"
-                ),
-                "body" => $data
-            );
-
-            if($action === "do-setting") {
-                $response = $client -> request("POST", $this -> reqUrl, $header);
-            }
-            if($action === "delete-setting"){
-                $response = $client -> request("DELETE", $this -> settingUrl, $headers);
-            }
-
-            $json = json_decode($response -> getBody(), true);
-            
-            if(isset($json["result"])) {
-                return true;
             }
             else {
                 return $json;
