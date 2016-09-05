@@ -7,7 +7,7 @@
 
         /** @test */
         public function builderTest() {
-            if(file_exists()) {
+            if(file_exists("./token.txt")) {
                 $handle = fopen("./token.txt");
                 //ignore the attention comment
 
