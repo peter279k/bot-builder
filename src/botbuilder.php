@@ -136,16 +136,16 @@
 
         private function clientSend($input, $data) {
             $client = new Client();
-            $headers = array(
+            $body = array(
                 "json" => $data,
+            );
+            $header = array(
                 "verify" => false,
-                "headers" => array(
-                    "Content-Type" => "application/json"
-                )
+                "Content-Type" => "application/json"
             );
             
             if(!empty($input['entry'][0]['messaging'][0]['message'])) {
-                $response = $client -> request("POST", $this -> reqUrl, $headers);
+                $response = $client -> request("POST", $this -> reqUrl, $header, $body);
                 $json = $response -> getBody();
                 $json = json_decode($json, true);
                 if(isset($json["message_id"]))
@@ -160,16 +160,16 @@
 
         private function threadSetting($data, $action) {
             $client = new Client();
-            $headers = array(
+            $body = array(
                 "json" => $data,
+            );
+            $header = array(
                 "verify" => false,
-                "headers" => array(
-                    "Content-Type" => "application/json"
-                )
+                "Content-Type" => "application/json"
             );
 
             if($action === "do-setting") {
-                $response = $client -> request("POST", $this -> reqUrl, $headers);
+                $response = $client -> request("POST", $this -> reqUrl, $header, $body);
             }
             if($action === "delete-setting"){
                 $response = $client -> request("DELETE", $this -> settingUrl, $headers);
