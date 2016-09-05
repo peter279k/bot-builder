@@ -171,7 +171,7 @@
                     "Content-Type" => "application/json",
                     "Accept" => "application/json"
                 ),
-                "json" => $data
+                "body" => $data
             );
 
             if($action === "do-setting") {
