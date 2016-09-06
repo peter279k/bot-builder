@@ -10,13 +10,16 @@
             $this -> subscribeUrl = "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=" . $this -> accessToken;
         }
 
-        public function verify($verifyToken) {
-            $hubMode = filter_input(INPUT_GET, "hub_mode");
-            $hubChallenge = filter_input(INPUT_GET, "hub_challenge");
-            $hubVerifyToken = filter_input(INPUT_GET, "hub_verify_token");
+        public function verify($verifyToken, $tokens) {
+            $hubMode = $tokens["hub_mode"];
+            $hubChallenge = $tokens["hub_challenge"];
+            $hubVerifyToken = $tokens["hub_verify_token"];
             
             if($verifyToken === $hubVerifyToken) {
-                echo $hubChallenge;
+                return $hubChallenge;
+            }
+            else  {
+                return false;
             }
         }
 
