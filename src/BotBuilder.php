@@ -85,7 +85,7 @@
             return true;
         }
 
-        public function sendImage($data) {
+        public function sendImage($input, $data) {
             if(count($data["attachment"]["payload"]) === 0) {
                 return $this -> clientUpload($data);
             }
@@ -94,11 +94,11 @@
             }
         }
 
-        public function sendText($data) {
+        public function sendText($input, $data) {
             return $this -> clientSend($input, $data);
         }
 
-        public function sendFile($data) {
+        public function sendFile($input, $data) {
             if(count($data["attachment"]["payload"]) === 0) {
                 return $this -> clientUpload($data);
             }
