@@ -45,7 +45,7 @@
                     break;
             }
 
-            return $this -> clientSend($data);
+            return $this -> clientSend($json, $data);
 
         }
 
@@ -121,7 +121,7 @@
 
         }
 
-        private function clientSend($input, $data) {
+        private function clientSend($data) {
             $client = new Client();
             $header = array(
                 "verify" => false,
@@ -130,19 +130,16 @@
                 ),
                 "json" => $data
             );
+
+            $response = $client -> request("POST", $this -> reqUrl, $header);
+            $json = $response -> getBody();
+            $json = json_decode($json, true);
             
-            if(!empty($input['entry'][0]['messaging'][0]['message'])) {
-                $response = $client -> request("POST", $this -> reqUrl, $header);
-                $json = $response -> getBody();
-                $json = json_decode($json, true);
-                if(isset($json["message_id"]))
-                    return true;
-                else
-                    return $json;
-            }
-            else {
+            if(isset($json["message_id"]))
+                 return true;
+            else
                 return $json;
-            }
+
         }
 
     }
