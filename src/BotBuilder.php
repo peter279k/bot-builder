@@ -32,7 +32,7 @@
             return $input;
         }
 
-        public function sendMsg($type, $data) {
+        public function sendMsg($type, $input, $data) {
             switch($type) {
                 case "images":
                     $this -> sendImage($data);
@@ -45,7 +45,7 @@
                     break;
             }
 
-            return $this -> clientSend($json, $data);
+            return $this -> clientSend($input, $data);
 
         }
 
@@ -90,12 +90,12 @@
                 return $this -> clientUpload($data);
             }
             else {
-                return $this -> clientSend($data);
+                return $this -> clientSend($input, $data);
             }
         }
 
         public function sendText($data) {
-            return $this -> clientSend($data);
+            return $this -> clientSend($input, $data);
         }
 
         public function sendFile($data) {
@@ -103,7 +103,7 @@
                 return $this -> clientUpload($data);
             }
             else {
-                return $this -> clientSend($data);
+                return $this -> clientSend($input, $data);
             }
         }
 
@@ -121,7 +121,7 @@
 
         }
 
-        private function clientSend($data) {
+        private function clientSend($input, $data) {
             $client = new Client();
             $header = array(
                 "verify" => false,
@@ -130,16 +130,19 @@
                 ),
                 "json" => $data
             );
-
-            $response = $client -> request("POST", $this -> reqUrl, $header);
-            $json = $response -> getBody();
-            $json = json_decode($json, true);
             
-            if(isset($json["message_id"]))
-                 return true;
-            else
+            if(!empty($input['entry'][0]['messaging'][0]['message'])) {
+                $response = $client -> request("POST", $this -> reqUrl, $header);
+                $json = $response -> getBody();
+                $json = json_decode($json, true);
+                if(isset($json["message_id"]))
+                    return true;
+                else
+                    return $json;
+            }
+            else {
                 return $json;
-
+            }
         }
 
     }
