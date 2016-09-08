@@ -35,13 +35,13 @@
         public function sendMsg($type, $input, $data) {
             switch($type) {
                 case "images":
-                    $this -> sendImage($data);
+                    $this -> sendImage($input, $data);
                     break;
                 case "texts":
-                    $this -> sendText($data);
+                    $this -> sendText($input, $data);
                     break;
                 case "files":
-                    $this -> sendFile($data);
+                    $this -> sendFile($input, $data);
                     break;
             }
 
