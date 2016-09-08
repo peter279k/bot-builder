@@ -110,7 +110,20 @@
         }
 
         public function delGreeting() {
+            $jsonData = array(
+                "setting_type" => "greeting",
+                "thread_state" => "existing_thread"
+            );
 
+            $body = array(
+                "verify" => false,
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                ),
+                "json" => $jsonData
+            );
+
+            return $this -> rmSetting($body);
         }
 
         public function addMenu($menus) {
@@ -133,7 +146,20 @@
         }
 
         public function delMenu() {
+            $jsonData = array(
+                "setting_type" => "call_to_actions",
+                "thread_state" => "existing_thread"
+            );
 
+            $body = array(
+                "verify" => false,
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                ),
+                "json" => $jsonData
+            );
+
+            return $this -> rmSetting($body);
         }
 
         public function sendFile($input, $data) {
@@ -159,6 +185,21 @@
                 return $response;
             }
 
+        }
+
+        private function rmSetting($body) {
+            $client = new Client();
+
+            $response = $client -> request("DELETE", $this -> settingUrl, $body);
+
+            $response = json_decode($response -> getBody(), true);
+
+            if(isset($response["result"])) {
+                return true;
+            }
+            else {
+                return $response;
+            }
         }
 
         private function clientUpload($data) {
