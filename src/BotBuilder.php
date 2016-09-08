@@ -45,8 +45,6 @@
                     break;
             }
 
-            return $this -> clientSend($input, $data);
-
         }
 
         public function subscribe($debug) {
@@ -133,15 +131,10 @@
             
             if(!empty($input['entry'][0]['messaging'][0]['message'])) {
                 $response = $client -> request("POST", $this -> reqUrl, $header);
-                $json = $response -> getBody();
-                $json = json_decode($json, true);
-                if(isset($json["message_id"]))
-                    return true;
-                else
-                    return $json;
+                return true;
             }
             else {
-                return $json;
+                return false;
             }
         }
 
