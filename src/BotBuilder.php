@@ -3,10 +3,11 @@
     use GuzzleHttp\Client;
 
     class BotBuilder {
-        public function __construct($accessToken) {
+        public function __construct($accessToken, $pageAccToken) {
             $this -> accessToken = $accessToken;
+            $this -> pageAccToken = $pageAccToken;
             $this -> reqUrl = "https://graph.facebook.com/v2.6/me/messages?access_token=" . $this -> accessToken;
-            $this -> settingUrl = "https://graph.facebook.com/v2.6/me/thread_settings?access_token=" . $this -> accessToken;
+            $this -> settingUrl = "https://graph.facebook.com/v2.6/me/thread_settings?access_token=" . $this -> pageAccToken;
             $this -> subscribeUrl = "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=" . $this -> accessToken;
         }
 
@@ -47,25 +48,17 @@
 
         }
 
-        public function subscribe($debug) {
+        public function subscribe() {
             $client = new Client();
             $response = $client -> request("POST", $this -> subscribeUrl);
             $json = $response -> getBody();
             $json = json_decode($json, true);
             
-            if($debug === true) {
-                return $json;
-            }
-            else if($debug === false){
-                if(isset($json["success"])) {
-                    return $json["success"];
-                }
-                else {
-                    return false;
-                }
+            if(isset($json["success"])) {
+                return $json["success"];
             }
             else {
-                return false;
+                return $json;
             }
         }
 
@@ -96,6 +89,55 @@
             return $this -> clientSend($input, $data);
         }
 
+        public function addGreeting($greetingTxt) {
+            $jsonData = array(
+                "setting_type" => "greeting",
+                "greeting" => array(
+                    "text" => $greetingTxt
+                )
+            );
+
+            $body = array(
+                "verify" => false,
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                ),
+                "json" => $jsonData
+            );
+
+            return $this -> modifySetting($body);
+            
+        }
+
+        public function delGreeting() {
+
+        }
+
+        public function addMenu($menus) {
+            $jsonData = array(
+                "setting_type" => "call_to_actions",
+                "thread_state" => "existing_thread",
+                "call_to_actions" => array(
+                    $menus
+                )
+            );
+
+            $body = array(
+                "verify" => false,
+                "headers" => array(
+                    "Content-Type" => "application/json"
+                ),
+                "json" => $jsonData
+            );
+
+            return $this -> modifySetting($body);
+
+        }
+
+        public function delMenu() {
+
+        }
+
         public function sendFile($input, $data) {
             if(count($data["attachment"]["payload"]) === 0) {
                 return $this -> clientUpload($data);
@@ -103,6 +145,22 @@
             else {
                 return $this -> clientSend($input, $data);
             }
+        }
+
+        private function modifySetting($body) {
+            $client = new Client();
+
+            $response = $client -> request("POST", $this -> settingUrl, $body);
+
+            $response = json_decode($response -> getBody(), true);
+
+            if(isset($response["result"])) {
+                return true;
+            }
+            else {
+                return $response;
+            }
+
         }
 
         private function clientUpload($data) {
