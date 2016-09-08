@@ -210,7 +210,7 @@
                 "form_params" => $data
             );
 
-            $response = $client -> request("POST", $this -> reqUrl,  $data, $headers);
+            $response = $client -> request("POST", $this -> reqUrl, $headers);
             $json = $response -> getBody();
             return json_decode($json, true);
 
