@@ -1,6 +1,7 @@
 <?php
     require "BotBuilder.php";
     use peter\components\BotBuilder;
+    use GuzzleHttp\Client;
     /*
     testing:
     verifyTest
