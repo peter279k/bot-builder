@@ -1,6 +1,6 @@
 <?php
     require "BotBuilder.php";
-
+    use peter\components\BotBuilder;
     /*
     testing:
     verifyTest
@@ -11,7 +11,7 @@
     delMenuTest
     */
 
-    class BuilderTest extends PHPUnit_Framework_TestCase{
+    class BuilderTest extends PHPUnit_Framework_TestCase {
         /** @test */
         public function processTest() {
             //subscribeTest
