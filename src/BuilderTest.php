@@ -17,6 +17,7 @@
             //subscribeTest
             $expect = true;
             $response = $this -> subscribeTest();
+            var_dump($response);
             $this -> assertSame($expect, $response);
 
             //addGreetingTest
