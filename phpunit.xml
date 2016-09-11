@@ -7,7 +7,7 @@
     <filter>
 		
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">./src/BuilderTest.php</directory>
+			<directory suffix=".php">./src/Builder.php</directory>
 		</whitelist>
 	</filter>
 	
