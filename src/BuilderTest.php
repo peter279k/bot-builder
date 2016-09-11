@@ -97,8 +97,8 @@
         }
 
         public function getToken() {
-            if(file_exists("token.json")) {
-                return $tokens = file_get_contents("token.json");
+            if(file_exists(__DIR__ . "/token.json")) {
+                return $tokens = file_get_contents(__DIR__ . "/token.json");
             }
             else {
                 return false;
