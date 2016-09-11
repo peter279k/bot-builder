@@ -1,5 +1,6 @@
 <?php
     namespace peter\components;
+    use GuzzleHttp\Client;
 
     class BotBuilder {
         public function __construct($accessToken, $pageAccToken) {
@@ -48,7 +49,7 @@
         }
 
         public function subscribe() {
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
             $response = $client -> request("POST", $this -> subscribeUrl);
             $json = $response -> getBody();
             $json = json_decode($json, true);
@@ -62,7 +63,7 @@
         }
 
         public function statusBubble($data) {
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
             $header = array(
                 "verify" => false,
                 "headers" => array(
@@ -171,7 +172,7 @@
         }
 
         private function modifySetting($body) {
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
 
             $response = $client -> request("POST", $this -> settingUrl, $body);
 
@@ -187,7 +188,7 @@
         }
 
         private function rmSetting($body) {
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
 
             $response = $client -> request("DELETE", $this -> settingUrl, $body);
 
@@ -202,7 +203,7 @@
         }
 
         private function clientUpload($data) {
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
             $data["filedata"] = fopen($data["filedata"], "r");
             $headers = array(
                 "verify" => false,
@@ -216,7 +217,7 @@
         }
 
         private function clientSend($input, $data) {
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
             $header = array(
                 "verify" => false,
                 "headers" => array(
