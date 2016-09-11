@@ -71,7 +71,7 @@
             }
 
             $builder = new BotBuilder($tokens["token"], $tokens["page_token"]);
-            $response = $builder -> addGreeting();
+            $response = $builder -> addGreeting($greetingText);
             return $response;
         }
 
