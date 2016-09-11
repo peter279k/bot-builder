@@ -1,4 +1,6 @@
 # bot-builder
+[![Build Status](https://travis-ci.org/peter279k/bot-builder.svg?branch=1.1.6)](https://travis-ci.org/peter279k/bot-builder)
+
 It's a builder for messenger api
 
 # Usage
