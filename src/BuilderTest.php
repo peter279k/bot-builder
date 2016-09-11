@@ -1,7 +1,5 @@
 <?php
     require "BotBuilder.php";
-    
-    use GuzzleHttp\Client;
     use peter\components\BotBuilder;
     /*
     testing:
