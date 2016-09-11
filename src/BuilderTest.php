@@ -17,7 +17,6 @@
             //subscribeTest
             $expect = true;
             $response = $this -> subscribeTest();
-            var_dump($response);
             $this -> assertSame($expect, $response);
 
             //addGreetingTest
@@ -99,6 +98,7 @@
 
         public function getToken() {
             if(file_exists(__DIR__ . "/token.json")) {
+                $tokens = json_decode($tokens, true);
                 return $tokens = file_get_contents(__DIR__ . "/token.json");
             }
             else {
