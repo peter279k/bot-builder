@@ -230,6 +230,10 @@
                 $response = $client -> request("POST", $this -> reqUrl, $header);
                 return true;
             }
+	    else if(!empty($input['entry'][0]['messaging'][0]['postback'])) {
+	   	$response = $client -> request("POST", $this -> reqUrl, $header);                                                                              
+                return true;
+  	    }
             else {
                 return false;
             }
