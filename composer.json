@@ -1,6 +1,6 @@
 {
     "name": "peter/botbuilder",
-    "description": "help you build messenger bot easily",
+    "description": "help you to build Facebook Messenger bot easily",
     "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^7"
